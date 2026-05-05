@@ -1,0 +1,22 @@
+[package]
+name = "rustzigbeam_benches"
+version = "0.8.0"
+edition = "2021"
+license = "Apache-2.0"
+
+[workspace]
+
+[[bench]]
+name = "vm_benchmarks"
+harness = false
+path = "vm_benchmarks.rs"
+
+[dependencies]
+rustzigbeam_vm = { path = "../crates/rustzigbeam_vm" }
+rustzigbeam_process = { path = "../crates/rustzigbeam_process" }
+rustzigbeam_term = { path = "../crates/rustzigbeam_term" }
+rustzigbeam_instr = { path = "../crates/rustzigbeam_instr" }
+rustzigbeam_scheduler = { path = "../crates/rustzigbeam_scheduler" }
+
+[dev-dependencies]
+criterion = "0.5"
