@@ -1,0 +1,19 @@
+[package]
+name = "chimera_erlang_beam_abi"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[build-dependencies]
+
+[dependencies]
+chimera_erlang_beam_core = { workspace = true }
+
+[features]
+default = ["zig"]
+zig = []
+
+[lints]
+workspace = true
+[dev-dependencies]
+chimera_erlang_beam_allocator = { workspace = true }
