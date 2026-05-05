@@ -1,0 +1,7 @@
+# Rust toolchain pinning for reproducible builds
+# https://rust-lang.github.io/rustup/concepts/toolchains.html
+
+[toolchain]
+channel = "1.85.0"
+components = ["rustfmt", "clippy", "rust-src"]
+targets = ["x86_64-unknown-linux-gnu"]

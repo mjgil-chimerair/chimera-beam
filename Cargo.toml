@@ -1,0 +1,63 @@
+[workspace]
+resolver = "2"
+members = [
+  "crates/chimera_beam_term",
+  "crates/chimera_erlang_beam_allocator",
+  "crates/chimera_erlang_beam_vm",
+  "crates/chimera_erlang_beam_term",
+  "crates/chimera_erlang_beam_scheduler",
+  "crates/chimera_erlang_beam_process",
+  "crates/chimera_erlang_beam_dist",
+  "crates/chimera_erlang_beam_instr",
+  "crates/chimera_erlang_beam_bif",
+  "crates/chimera_erlang_beam_heap",
+  "crates/chimera_erlang_beam_timer",
+  "crates/chimera_erlang_beam_core",
+  "crates/chimera_erlang_beam_abi",
+  "crates/chimera_erlang_beam_code",
+  "crates/chimera_erlang_beam_runtime",
+  "crates/chimera_erlang_beam_trace",
+  "crates/chimera_erlang_beam_nif",
+  "crates/chimera_erlang_beam_examples",
+  "crates/chimera_erlang_beam_jit",
+]
+exclude = ["benches", "fuzz"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+repository = "https://github.com/mjgil/chimera-erlang-beam"
+
+[workspace.dependencies]
+chimera_erlang_beam_vm = { path = "crates/chimera_erlang_beam_vm" }
+chimera_erlang_beam_term = { path = "crates/chimera_erlang_beam_term" }
+chimera_erlang_beam_scheduler = { path = "crates/chimera_erlang_beam_scheduler" }
+chimera_erlang_beam_process = { path = "crates/chimera_erlang_beam_process" }
+chimera_erlang_beam_dist = { path = "crates/chimera_erlang_beam_dist" }
+chimera_erlang_beam_instr = { path = "crates/chimera_erlang_beam_instr" }
+chimera_erlang_beam_bif = { path = "crates/chimera_erlang_beam_bif" }
+chimera_erlang_beam_heap = { path = "crates/chimera_erlang_beam_heap" }
+chimera_erlang_beam_timer = { path = "crates/chimera_erlang_beam_timer" }
+chimera_erlang_beam_core = { path = "crates/chimera_erlang_beam_core" }
+chimera_erlang_beam_abi = { path = "crates/chimera_erlang_beam_abi" }
+chimera_erlang_beam_code = { path = "crates/chimera_erlang_beam_code" }
+chimera_erlang_beam_runtime = { path = "crates/chimera_erlang_beam_runtime" }
+chimera_erlang_beam_trace = { path = "crates/chimera_erlang_beam_trace" }
+chimera_erlang_beam_nif = { path = "crates/chimera_erlang_beam_nif" }
+chimera_erlang_beam_allocator = { path = "crates/chimera_erlang_beam_allocator" }
+chimera_erlang_beam_jit = { path = "crates/chimera_erlang_beam_jit" }
+rzx_beam_term = { package = "chimera_beam_term", path = "crates/chimera_beam_term" }
+md-5 = "0.10"
+proptest = "1.0"
+cap = "0.1.2"
+
+[workspace.lints.rust]
+unsafe-code = "allow"
+missing-docs = "warn"
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
