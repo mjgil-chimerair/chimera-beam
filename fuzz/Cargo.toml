@@ -1,0 +1,32 @@
+[package]
+name = "rustzigbeam-fuzz"
+version = "0.0.1"
+edition = "2021"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+rustzigbeam_term = { path = "../crates/rustzigbeam_term" }
+rustzigbeam_instr = { path = "../crates/rustzigbeam_instr" }
+libfuzzer-sys = "0.4"
+
+[profile.release]
+opt-level = 3
+debug = false
+lto = true
+
+[profile.dev]
+opt-level = 1
+
+[[bin]]
+name = "term_parsing"
+path = "src/term_parsing.rs"
+
+[[bin]]
+name = "instruction_decoder"
+path = "src/instruction_decoder.rs"
+
+[[bin]]
+name = "etf_decoder"
+path = "src/etf_decoder.rs"
