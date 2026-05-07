@@ -1,0 +1,15 @@
+# Build artifacts
+/target/
+
+# Editor directories
+.claude/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
