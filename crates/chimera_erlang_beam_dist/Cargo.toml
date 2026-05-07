@@ -1,0 +1,15 @@
+[package]
+name = "chimera_erlang_beam_dist"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+chimera_erlang_beam_term = { workspace = true }
+md-5 = { workspace = true }
+
+[lints]
+workspace = true
+
+[dev-dependencies]
+chimera_erlang_beam_allocator = { workspace = true }
