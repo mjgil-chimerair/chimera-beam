@@ -1,0 +1,61 @@
+version = "0.2.0"
+name = "chimera-beam-separate"
+description = "Build chimera-beam through separate Rust and Zig chimerair components"
+chimera_version = "0.1.0"
+runtime_mode = "std"
+output = "executable"
+
+[[targets]]
+triple = "x86_64-unknown-linux-gnu"
+
+[[components]]
+id = "beam_runtime"
+language = "rust"
+kind = "cargo-package"
+roots = ["Cargo.toml"]
+manifest = "Cargo.toml"
+package = "chimera_erlang_beam_runtime"
+crate_types = ["staticlib"]
+panic_policy = "abort"
+target = "x86_64-unknown-linux-gnu"
+opt_level = 3
+debug = false
+lto = true
+exported_symbols = ["chimera_beam_runtime_entry"]
+
+[[components]]
+id = "beam_zig"
+language = "zig"
+kind = "zig-lib"
+roots = ["zig/src/root.zig"]
+target = "x86_64-unknown-linux-gnu"
+opt_level = 3
+debug = false
+lto = true
+exported_symbols = ["beamz_etf_scan", "beamz_heap_scan", "beamz_copy_cons"]
+
+[[components]]
+id = "beam_launcher"
+language = "c"
+kind = "c-source"
+roots = ["chimerair/main.c"]
+entry_symbol = "c_main"
+target = "x86_64-unknown-linux-gnu"
+opt_level = 3
+debug = false
+lto = true
+imported_symbols = ["chimera_beam_runtime_entry"]
+
+[[abi_edges]]
+consumer = "beam_runtime"
+provider = "beam_zig"
+mode = "direct-link"
+wrapper = "none"
+proof = "optional"
+
+[[abi_edges]]
+consumer = "beam_launcher"
+provider = "beam_runtime"
+mode = "direct-link"
+wrapper = "none"
+proof = "optional"
