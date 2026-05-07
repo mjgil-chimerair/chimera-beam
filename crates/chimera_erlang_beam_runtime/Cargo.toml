@@ -1,0 +1,22 @@
+[package]
+name = "chimera_erlang_beam_runtime"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+crate-type = ["rlib", "staticlib"]
+
+[[bin]]
+name = "rustzigbeam"
+path = "src/main.rs"
+
+[dependencies]
+chimera_erlang_beam_core = { workspace = true }
+chimera_erlang_beam_vm = { workspace = true }
+chimera_erlang_beam_scheduler = { workspace = true }
+
+[lints]
+workspace = true
+[dev-dependencies]
+chimera_erlang_beam_allocator = { workspace = true }
