@@ -1,0 +1,18 @@
+[package]
+name = "chimera_erlang_beam_process"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+chimera_erlang_beam_core = { workspace = true }
+chimera_erlang_beam_term = { workspace = true }
+chimera_erlang_beam_heap = { workspace = true }
+chimera_erlang_beam_instr = { workspace = true }
+chimera_erlang_beam_trace = { workspace = true }
+
+[lints]
+workspace = true
+
+[dev-dependencies]
+chimera_erlang_beam_allocator = { workspace = true }
