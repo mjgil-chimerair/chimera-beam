@@ -1,0 +1,18 @@
+[package]
+name = "chimera_erlang_beam_examples"
+version = "0.8.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+
+[[bin]]
+name = "e2e_integration"
+path = "src/main.rs"
+
+[dependencies]
+chimera_erlang_beam_code = { path = "../chimera_erlang_beam_code" }
+chimera_erlang_beam_term = { path = "../chimera_erlang_beam_term" }
+chimera_erlang_beam_process = { path = "../chimera_erlang_beam_process" }
+chimera_erlang_beam_scheduler = { path = "../chimera_erlang_beam_scheduler" }
+chimera_erlang_beam_vm = { path = "../chimera_erlang_beam_vm" }
+chimera_erlang_beam_instr = { path = "../chimera_erlang_beam_instr" }
+rzx_beam_term = { workspace = true }
