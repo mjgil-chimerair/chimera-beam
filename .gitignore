@@ -1,0 +1,26 @@
+# RustZigBeam build artifacts
+/target/
+/zig-out/
+/zig-cache/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Lock files (we use workspace lock)
+/Cargo.lock
+
+# Build artifacts
+*.o
+*.rlib
+*.dylib
+.zig-cache
+zigbenches/target/
+benches/target/
+benches/target/
+fuzz/target/
+build-chimerair*/
+zig/
