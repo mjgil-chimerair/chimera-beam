@@ -1,0 +1,23 @@
+version = "0.2.0"
+name = "chimera-beam"
+description = "Build chimera-beam through chimerair's component orchestrator"
+chimera_version = "0.1.0"
+runtime_mode = "std"
+output = "staticlib"
+
+[[targets]]
+triple = "x86_64-unknown-linux-gnu"
+
+[[components]]
+id = "beam_workspace"
+language = "rust"
+kind = "cargo-package"
+roots = ["Cargo.toml"]
+manifest = "Cargo.toml"
+package = "chimera_erlang_beam_runtime"
+crate_types = ["bin"]
+panic_policy = "abort"
+target = "x86_64-unknown-linux-gnu"
+opt_level = 3
+debug = false
+lto = true
