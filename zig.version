@@ -1,0 +1,3 @@
+# Zig version for reproducible builds
+# Required: 0.13.x or later for good FFI support
+0.16.0
