@@ -1,0 +1,7 @@
+.{
+    .name = .beamz,
+    .version = "0.1.0",
+    .paths = .{""},
+    .fingerprint = 0xbef8de9c4e72bb,
+    .dependencies = .{},
+}
