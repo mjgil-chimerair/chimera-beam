@@ -1,0 +1,10 @@
+(lang dune 3.8)
+(name chimera_erlang_beam_frontend)
+(license apache-2.0)
+(authors "Chimera Team")
+(version 0.1.0)
+
+(package
+ (name chimera_erlang_beam_frontend)
+ (synopsis "OCaml compiler frontend for Chimera-Erlang-BEAM")
+ (description "Erlang lexer, parser, and Core Erlang lowering for Chimera-Erlang-BEAM"))

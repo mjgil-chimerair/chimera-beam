@@ -1,0 +1,10 @@
+(library
+ (name chimera_erlang_beam_frontend)
+ (public_name chimera_erlang_beam_frontend)
+ (modules lexer parser core_ir beam_gen)
+ (preprocess (pps ppx_yojson_conv)))
+
+(executable
+ (name parser_tests)
+ (libraries chimera_erlang_beam_frontend)
+ (modules parser_tests))
