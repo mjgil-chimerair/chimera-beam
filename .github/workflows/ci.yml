@@ -35,8 +35,8 @@ jobs:
       - name: Run clippy
         run: cargo clippy --workspace -- -D warnings
 
-      - name: Build (no warnings)
-        run: cargo build --workspace 2>&1 | tee build.log && ! grep -q "warning:" build.log
+      - name: Build (no errors)
+        run: cargo build --workspace 2>&1 | tee build.log && ! grep -q "error:" build.log
 
   # Phase 2: Test suite
   test:
