@@ -53,51 +53,61 @@ cargo run -p chimera_erlang_beam_runtime -- -n mynode@localhost -s 4
 cargo build --release --workspace
 ```
 
-### `chimerair` build paths
+### ChimeraIR binary builds
 
-There are two primary runtime binary paths to document:
-
-1. `rustzigc_abi_binary`
-2. `chimera_semantic_binary`
-
-#### 1. `rustzigc_abi_binary` (native Cargo/C ABI path)
-
-This is the normal ABI build. `chimerair` orchestrates the workspace build, but the runtime still follows the existing Cargo + Rust/Zig C ABI path for final compilation and linking.
-
-Build it with:
+The three ChimeraIR build variants for this repo are driven by the `chimera`
+CLI from [`../chimerair/tools`](../chimerair/tools/README.md).
+Build that CLI first:
 
 ```bash
-chimerair build --manifest Chimera.toml --target "$HOST_TRIPLE" --output ./build-chimerair-abi
+cd ../chimerair/tools
+cargo build --release -p chimera-cli
+cd ../../chimera-beam
 ```
 
-Output path: `build-chimerair-abi/rustzigc_abi_binary`
-
-#### 2. `chimera_semantic_binary` (full unified `chimerair` path)
-
-This is the fully unified lowering path. Every language component lowers into ChimeraIR before code generation:
-
-1. Rust -> ChimeraIR
-2. Zig -> ChimeraIR
-3. C -> ChimeraIR
-4. combined ChimeraIR
-5. optimized ChimeraIR
-6. LLVM IR
-7. final binary
-
-The manifest for this path is `Chimera.separate.toml`, which wires:
-- `beam_runtime` as the Rust component
-- `beam_zig` as the Zig component
-- `beam_launcher` as the C component
-
-Build it with:
+Use your host triple or pass an explicit target, for example:
 
 ```bash
-chimerair build --manifest Chimera.separate.toml --target "$HOST_TRIPLE" --output ./build-chimerair-unified
+HOST_TRIPLE=x86_64-unknown-linux-gnu
+CHIMERA=../chimerair/tools/target/release/chimera
 ```
 
-Output path: `build-chimerair-unified/chimera_semantic_binary`
+#### 1. ABI binary
 
-`Chimera.adapter.toml` is still in the repo as a legacy bridge-path manifest.
+This is the Cargo/C ABI path from [`Chimera.toml`](./Chimera.toml).
+
+```bash
+"$CHIMERA" build --manifest Chimera.toml --target "$HOST_TRIPLE" --output ./build-abi
+```
+
+Output path: `build-abi/chimera_binary`
+
+#### 2. Chimera adapter binary
+
+This is the adapter/bridge path from [`Chimera.adapter.toml`](./Chimera.adapter.toml).
+
+```bash
+"$CHIMERA" build --manifest Chimera.adapter.toml --target "$HOST_TRIPLE" --output ./build-adapter
+```
+
+Output path: `build-adapter/chimera_binary`
+
+#### 3. Chimera semantic binary
+
+This is the unified semantic lowering path from [`Chimera.separate.toml`](./Chimera.separate.toml):
+
+1. Rust lowers to ChimeraIR
+2. Zig lowers to ChimeraIR
+3. C lowers to ChimeraIR
+4. the IR is merged and optimized
+5. LLVM IR is emitted
+6. the final executable is linked
+
+```bash
+"$CHIMERA" build --manifest Chimera.separate.toml --target "$HOST_TRIPLE" --output ./build-semantic
+```
+
+Output path: `build-semantic/chimera_binary`
 
 ## Testing
 
