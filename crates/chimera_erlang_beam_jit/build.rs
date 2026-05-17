@@ -15,7 +15,7 @@ fn main() {
     // Run CMake configure
     let status = std::process::Command::new("cmake")
         .current_dir(&build_dir)
-        .args(&["-DCMAKE_BUILD_TYPE=Release", src_dir.to_str().unwrap()])
+        .args(["-DCMAKE_BUILD_TYPE=Release", src_dir.to_str().unwrap()])
         .status()
         .expect("Failed to run cmake");
 
@@ -26,7 +26,7 @@ fn main() {
     // Build
     let status = std::process::Command::new("cmake")
         .current_dir(&build_dir)
-        .args(&["--build", ".", "--target", "chimera_jit"])
+        .args(["--build", ".", "--target", "chimera_jit"])
         .status()
         .expect("Failed to build");
 

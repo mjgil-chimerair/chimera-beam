@@ -23,6 +23,7 @@ use std::os::raw::c_char;
 /// JIT compilation result
 #[repr(C)]
 #[derive(Debug)]
+#[allow(missing_docs)]
 pub struct JitResult {
     pub code: u32,
     pub native_code: *mut std::ffi::c_void,

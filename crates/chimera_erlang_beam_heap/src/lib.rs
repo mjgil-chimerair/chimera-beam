@@ -123,6 +123,7 @@ pub struct ProcessHeap {
     /// Virtual binary heap for off-heap binary accounting
     virtual_binary_heap: off_heap_binary::VirtualBinaryHeap,
     /// Survivor space size in words (young generation survivors before promotion)
+    #[allow(dead_code)]
     survivor_space_size: usize,
 }
 

@@ -7,7 +7,9 @@ license.workspace = true
 [build-dependencies]
 cmake = "0.1"
 
-[dependencies]
+[features]
+default = []
+use_cpp_jit = []
 
 [lints]
 workspace = true

@@ -186,6 +186,7 @@ pub fn cli_main() -> i32 {
 }
 
 #[unsafe(no_mangle)]
+#[allow(clippy::not_unsafe_ptr_arg_deref)]
 pub extern "C" fn chimera_beam_runtime_entry(argc: i32, argv: *const *const c_char) -> i32 {
     let argc = argc.max(0) as usize;
     let mut args = Vec::with_capacity(argc);
