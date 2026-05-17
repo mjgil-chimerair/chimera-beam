@@ -80,7 +80,13 @@ impl Default for Mfa {
 
 impl std::fmt::Display for Mfa {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}/{}/{}", self.module.id(), self.function.id(), self.arity)
+        write!(
+            f,
+            "{}/{}/{}",
+            self.module.id(),
+            self.function.id(),
+            self.arity
+        )
     }
 }
 
@@ -116,13 +122,22 @@ mod tests {
         use std::collections::HashMap;
         let mut map = HashMap::new();
         map.insert(Mfa::new(Atom::new(1), Atom::new(2), 3), "test");
-        assert_eq!(map.get(&Mfa::new(Atom::new(1), Atom::new(2), 3)), Some(&"test"));
+        assert_eq!(
+            map.get(&Mfa::new(Atom::new(1), Atom::new(2), 3)),
+            Some(&"test")
+        );
     }
 
     #[test]
     fn test_mfa_eq() {
-        assert_eq!(Mfa::new(Atom::new(1), Atom::new(2), 3), Mfa::new(Atom::new(1), Atom::new(2), 3));
-        assert_ne!(Mfa::new(Atom::new(1), Atom::new(2), 3), Mfa::new(Atom::new(1), Atom::new(2), 4));
+        assert_eq!(
+            Mfa::new(Atom::new(1), Atom::new(2), 3),
+            Mfa::new(Atom::new(1), Atom::new(2), 3)
+        );
+        assert_ne!(
+            Mfa::new(Atom::new(1), Atom::new(2), 3),
+            Mfa::new(Atom::new(1), Atom::new(2), 4)
+        );
     }
 
     #[test]

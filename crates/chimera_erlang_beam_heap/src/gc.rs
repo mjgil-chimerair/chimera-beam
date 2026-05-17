@@ -310,7 +310,8 @@ impl ProcessHeap {
     fn is_heap_pointer(term: Term) -> bool {
         !matches!(
             term.tag(),
-            chimera_erlang_beam_term::TermTag::SmallInteger | chimera_erlang_beam_term::TermTag::Atom
+            chimera_erlang_beam_term::TermTag::SmallInteger
+                | chimera_erlang_beam_term::TermTag::Atom
         )
     }
 

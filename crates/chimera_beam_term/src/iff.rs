@@ -2,7 +2,7 @@
 //!
 //! BEAM files use the IFF container format for storing chunks.
 
-use std::io::{Read, Write, Cursor};
+use std::io::{Cursor, Read, Write};
 
 /// IFF chunk identifier (4 bytes)
 pub type ChunkId = [u8; 4];

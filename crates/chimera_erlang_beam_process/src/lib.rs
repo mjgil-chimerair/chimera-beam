@@ -827,7 +827,9 @@ impl ProcessControlBlock {
                 }
                 Signal::Exit { .. } => {
                     // Exit signals bypass selective receive
-                    return Some(Term::from_atom(chimera_erlang_beam_term::atoms::ATOM_NORMAL));
+                    return Some(Term::from_atom(
+                        chimera_erlang_beam_term::atoms::ATOM_NORMAL,
+                    ));
                 }
                 Signal::MonitorDown { .. } => {
                     self.save_queue.save(signal);
@@ -1051,7 +1053,9 @@ impl ProcessControlBlock {
             ProcessState::Running => chimera_erlang_beam_term::atoms::ATOM_RUNNING,
             ProcessState::Waiting => chimera_erlang_beam_term::atoms::ATOM_WAITING,
             ProcessState::Exiting => chimera_erlang_beam_term::atoms::ATOM_EXITING,
-            ProcessState::GarbageCollecting => chimera_erlang_beam_term::atoms::ATOM_GARBAGE_COLLECTING,
+            ProcessState::GarbageCollecting => {
+                chimera_erlang_beam_term::atoms::ATOM_GARBAGE_COLLECTING
+            }
             ProcessState::Suspended => chimera_erlang_beam_term::atoms::ATOM_SUSPENDED,
             ProcessState::Dead => chimera_erlang_beam_term::atoms::ATOM_DEAD,
         };
@@ -1948,7 +1952,9 @@ mod tests {
         assert_eq!(pcb.state, ProcessState::Running);
         assert!(pcb.is_alive());
 
-        pcb.exit(Term::from_atom(chimera_erlang_beam_term::atoms::ATOM_NORMAL));
+        pcb.exit(Term::from_atom(
+            chimera_erlang_beam_term::atoms::ATOM_NORMAL,
+        ));
 
         assert_eq!(pcb.state, ProcessState::Exiting);
         assert!(!pcb.is_alive());
@@ -2014,7 +2020,10 @@ mod tests {
 
         // mark_exited sets state to Exiting
         table
-            .mark_exited(pid, Term::from_atom(chimera_erlang_beam_term::atoms::ATOM_NORMAL))
+            .mark_exited(
+                pid,
+                Term::from_atom(chimera_erlang_beam_term::atoms::ATOM_NORMAL),
+            )
             .unwrap();
 
         // terminate sets state to Dead and clears slot
@@ -2096,7 +2105,9 @@ mod tests {
         // Exit process 1 and propagate
         {
             let (_, pcb1) = table.get_by_pid(pid1).unwrap();
-            pcb1.exit(Term::from_atom(chimera_erlang_beam_term::atoms::ATOM_NORMAL));
+            pcb1.exit(Term::from_atom(
+                chimera_erlang_beam_term::atoms::ATOM_NORMAL,
+            ));
         }
         propagate_exit(
             &mut table,
@@ -2138,7 +2149,9 @@ mod tests {
         // Exit process 1 and propagate
         {
             let (_, pcb1) = table.get_by_pid(pid1).unwrap();
-            pcb1.exit(Term::from_atom(chimera_erlang_beam_term::atoms::ATOM_NORMAL));
+            pcb1.exit(Term::from_atom(
+                chimera_erlang_beam_term::atoms::ATOM_NORMAL,
+            ));
         }
         propagate_exit(
             &mut table,
@@ -2203,7 +2216,9 @@ mod tests {
         // Exit pid2 and propagate
         {
             let (_, pcb2) = table.get_by_pid(pid2).unwrap();
-            pcb2.exit(Term::from_atom(chimera_erlang_beam_term::atoms::ATOM_NORMAL));
+            pcb2.exit(Term::from_atom(
+                chimera_erlang_beam_term::atoms::ATOM_NORMAL,
+            ));
         }
         propagate_monitors(
             &mut table,
@@ -2580,7 +2595,10 @@ mod tests {
 
         // Kill pid2
         table
-            .mark_exited(pid2, Term::from_atom(chimera_erlang_beam_term::atoms::ATOM_NORMAL))
+            .mark_exited(
+                pid2,
+                Term::from_atom(chimera_erlang_beam_term::atoms::ATOM_NORMAL),
+            )
             .unwrap();
 
         // Link pid1 to dead pid2 - should still work but pid2 is not alive

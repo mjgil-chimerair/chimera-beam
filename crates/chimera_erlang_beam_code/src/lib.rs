@@ -478,9 +478,7 @@ mod tests {
         code_data[12..16].copy_from_slice(&0u32.to_be_bytes()); // code_size = 0
 
         // Calculate chunks size
-        let chunks_size = 8 + atom_data.len()
-            + 8 + export_data.len()
-            + 8 + code_data.len();
+        let chunks_size = 8 + atom_data.len() + 8 + export_data.len() + 8 + code_data.len();
 
         // Update FOR1 size
         let body_size = 4 + chunks_size; // "BEAM" + chunks

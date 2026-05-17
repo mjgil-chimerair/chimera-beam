@@ -153,8 +153,12 @@ impl RuntimeServices for DefaultRuntimeServices<'_> {
     }
 
     fn unlink_processes(&mut self, pid_a: Pid, pid_b: Pid) -> Result<(), BifError> {
-        chimera_erlang_beam_process::bidirectional_unlink_with_table(self.process_table, pid_a, pid_b)
-            .map_err(|_| BifError::SystemLimit)
+        chimera_erlang_beam_process::bidirectional_unlink_with_table(
+            self.process_table,
+            pid_a,
+            pid_b,
+        )
+        .map_err(|_| BifError::SystemLimit)
     }
 
     fn monitor_process(&mut self, pid_from: Pid, pid_to: Pid) -> Result<u64, BifError> {
@@ -500,8 +504,12 @@ pub fn bif_link(ctx: &mut BifContext, args: &[Term]) -> Term {
         let other_id = other.to_cons() as u32;
         let other_pid = Pid::new(other_id, 0, 0);
 
-        if chimera_erlang_beam_process::bidirectional_link_with_table(ctx.process_table, ctx.pid, other_pid)
-            .is_ok()
+        if chimera_erlang_beam_process::bidirectional_link_with_table(
+            ctx.process_table,
+            ctx.pid,
+            other_pid,
+        )
+        .is_ok()
         {
             return Term::from_atom(chimera_erlang_beam_term::atoms::ATOM_TRUE);
         }
@@ -564,7 +572,8 @@ pub fn bif_demonitor(ctx: &mut BifContext, args: &[Term]) -> Term {
 
     let ref_id = args[0].to_cons();
 
-    if chimera_erlang_beam_process::demonitor_with_table(ctx.process_table, ctx.pid, ref_id).is_ok() {
+    if chimera_erlang_beam_process::demonitor_with_table(ctx.process_table, ctx.pid, ref_id).is_ok()
+    {
         return Term::from_atom(chimera_erlang_beam_term::atoms::ATOM_TRUE);
     }
 
@@ -622,7 +631,9 @@ fn get_process_info_item(pcb: &mut ProcessControlBlock, key_atom: u32) -> Term {
                 ProcessState::Running => chimera_erlang_beam_term::atoms::ATOM_RUNNING,
                 ProcessState::Waiting => chimera_erlang_beam_term::atoms::ATOM_WAITING,
                 ProcessState::Exiting => chimera_erlang_beam_term::atoms::ATOM_EXITING,
-                ProcessState::GarbageCollecting => chimera_erlang_beam_term::atoms::ATOM_GARBAGE_COLLECTING,
+                ProcessState::GarbageCollecting => {
+                    chimera_erlang_beam_term::atoms::ATOM_GARBAGE_COLLECTING
+                }
                 ProcessState::Suspended => chimera_erlang_beam_term::atoms::ATOM_SUSPENDED,
                 ProcessState::Dead => chimera_erlang_beam_term::atoms::ATOM_DEAD,
             };
@@ -1175,7 +1186,10 @@ mod tests {
 
         let pid = rt.spawn_process(8192).unwrap();
 
-        let result = rt.exit_process(pid, Term::from_atom(chimera_erlang_beam_term::atoms::ATOM_NORMAL));
+        let result = rt.exit_process(
+            pid,
+            Term::from_atom(chimera_erlang_beam_term::atoms::ATOM_NORMAL),
+        );
         assert!(result.is_ok());
     }
 
@@ -1303,7 +1317,10 @@ fn test_bif_spawn_and_send() {
 
     // Get the PCB and verify state
     let (_, pcb) = table.get_by_pid(pid).unwrap();
-    assert_eq!(pcb.state, chimera_erlang_beam_process::ProcessState::Running);
+    assert_eq!(
+        pcb.state,
+        chimera_erlang_beam_process::ProcessState::Running
+    );
 }
 
 #[test]

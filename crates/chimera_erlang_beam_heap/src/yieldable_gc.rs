@@ -257,7 +257,8 @@ impl YieldableGc {
     /// Mark a term and all its references
     fn mark_term(term: Term, mark_bits: &mut GcMarkBits, from_space: &[u64]) {
         match term.tag() {
-            chimera_erlang_beam_term::TermTag::SmallInteger | chimera_erlang_beam_term::TermTag::Atom => {}
+            chimera_erlang_beam_term::TermTag::SmallInteger
+            | chimera_erlang_beam_term::TermTag::Atom => {}
             chimera_erlang_beam_term::TermTag::Cons => {
                 let ptr = term.to_cons();
                 // In our implementation, heap indices start at 0, so 0 is valid

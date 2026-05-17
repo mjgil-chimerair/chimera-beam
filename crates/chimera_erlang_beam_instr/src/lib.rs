@@ -410,10 +410,11 @@ impl ExecContext {
 
     /// Get mutable reference to the heap if set
     pub fn heap_mut(&mut self) -> Option<&mut chimera_erlang_beam_heap::ProcessHeap> {
-        self.heap.map(|h: *mut chimera_erlang_beam_heap::ProcessHeap| {
-            // Safety: self.heap is set only when the heap is valid and owned by the process
-            unsafe { &mut *h }
-        })
+        self.heap
+            .map(|h: *mut chimera_erlang_beam_heap::ProcessHeap| {
+                // Safety: self.heap is set only when the heap is valid and owned by the process
+                unsafe { &mut *h }
+            })
     }
 
     /// Check if heap is available
@@ -1171,7 +1172,8 @@ pub fn execute_instruction(ctx: &mut ExecContext, code: &[u64]) -> StepResult {
             let src = decode_src(word);
             let val = ctx.get_x(src);
             // Number is small integer or float
-            let result = if val.is_small() || val.tag() == chimera_erlang_beam_term::TermTag::Float {
+            let result = if val.is_small() || val.tag() == chimera_erlang_beam_term::TermTag::Float
+            {
                 Term::from_atom(chimera_erlang_beam_term::atoms::ATOM_TRUE)
             } else {
                 Term::from_atom(chimera_erlang_beam_term::atoms::ATOM_FALSE)
@@ -1503,7 +1505,10 @@ pub fn execute_instruction(ctx: &mut ExecContext, code: &[u64]) -> StepResult {
             // Receive timeout - triggered when no message arrives within timeout
             // Clear receive state and return timeout indicator
             ctx.receive_state = None;
-            ctx.set_x(0, Term::from_atom(chimera_erlang_beam_term::atoms::ATOM_FALSE));
+            ctx.set_x(
+                0,
+                Term::from_atom(chimera_erlang_beam_term::atoms::ATOM_FALSE),
+            );
             StepResult {
                 ip,
                 result: ExecResult::Ok,

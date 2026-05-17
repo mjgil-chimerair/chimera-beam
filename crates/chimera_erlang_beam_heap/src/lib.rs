@@ -47,7 +47,7 @@ impl Default for HeapConfig {
             max_size: 16 * 1024 * 1024 / 8,
             growth_rate: 2.0,
             shrink_threshold: 0.3,
-            survivor_ratio: 0.2, // 20% of heap for survivors
+            survivor_ratio: 0.2,    // 20% of heap for survivors
             promotion_threshold: 3, // Promote after 3 minor GCs
         }
     }
@@ -623,7 +623,8 @@ impl ProcessHeap {
     /// Also recursively marks objects referenced by live objects.
     fn mark_term_gc(term: Term, mark_bits: &mut crate::gc::GcMarkBits, from_space: &[u64]) {
         match term.tag() {
-            chimera_erlang_beam_term::TermTag::SmallInteger | chimera_erlang_beam_term::TermTag::Atom => {
+            chimera_erlang_beam_term::TermTag::SmallInteger
+            | chimera_erlang_beam_term::TermTag::Atom => {
                 // Immediate values - nothing to mark
             }
             chimera_erlang_beam_term::TermTag::Cons => {
@@ -1554,7 +1555,10 @@ mod tests {
 
         let pos = heap.alloc_nil();
         assert!(pos.is_some());
-        assert_eq!(pos.unwrap(), chimera_erlang_beam_term::atoms::ATOM_NIL as usize);
+        assert_eq!(
+            pos.unwrap(),
+            chimera_erlang_beam_term::atoms::ATOM_NIL as usize
+        );
 
         // Nil doesn't use heap space (it's an immediate atom)
         assert_eq!(heap.used_size(), 0);

@@ -628,8 +628,11 @@ mod tests {
         bidirectional_link_with_table(&mut vm.process_table, pid1, pid2).unwrap();
 
         // Exit pid1 with normal reason
-        vm.exit_process(pid1, Term::from_atom(chimera_erlang_beam_term::atoms::ATOM_NORMAL))
-            .unwrap();
+        vm.exit_process(
+            pid1,
+            Term::from_atom(chimera_erlang_beam_term::atoms::ATOM_NORMAL),
+        )
+        .unwrap();
 
         // pid1 should not be alive
         assert!(!vm.process_table.is_alive(pid1));
@@ -660,8 +663,11 @@ mod tests {
         }
 
         // Exit pid1 and propagate
-        vm.exit_process(pid1, Term::from_atom(chimera_erlang_beam_term::atoms::ATOM_NORMAL))
-            .unwrap();
+        vm.exit_process(
+            pid1,
+            Term::from_atom(chimera_erlang_beam_term::atoms::ATOM_NORMAL),
+        )
+        .unwrap();
         propagate_exit(
             &mut vm.process_table,
             pid1,
@@ -688,8 +694,11 @@ mod tests {
         }
 
         // Exit process
-        vm.exit_process(pid, Term::from_atom(chimera_erlang_beam_term::atoms::ATOM_NORMAL))
-            .unwrap();
+        vm.exit_process(
+            pid,
+            Term::from_atom(chimera_erlang_beam_term::atoms::ATOM_NORMAL),
+        )
+        .unwrap();
 
         // Process should be marked as Exiting
         let (_, pcb) = vm.process_table.get_by_pid(pid).unwrap();
@@ -702,8 +711,11 @@ mod tests {
         let pid = vm.spawn(8192);
 
         // Kill the process using kill reason
-        vm.exit_process(pid, Term::from_atom(chimera_erlang_beam_term::atoms::ATOM_KILL))
-            .unwrap();
+        vm.exit_process(
+            pid,
+            Term::from_atom(chimera_erlang_beam_term::atoms::ATOM_KILL),
+        )
+        .unwrap();
 
         // Verify process is no longer alive
         assert!(!vm.process_table.is_alive(pid));

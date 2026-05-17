@@ -2,9 +2,9 @@
 //!
 //! This module defines the structure for compiled BEAM modules.
 
-use std::collections::HashMap;
 use super::atom::Atom;
 use super::mfa::Mfa;
+use std::collections::HashMap;
 
 /// A compiled module representation (BEAM-compatible).
 #[derive(Debug, Clone)]

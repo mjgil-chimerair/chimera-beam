@@ -301,7 +301,10 @@ impl Scheduler {
     }
 
     /// Set the timer manager for this scheduler (Task 69 integration)
-    pub fn set_timer_manager(&mut self, manager: Arc<Mutex<chimera_erlang_beam_timer::TimerManager>>) {
+    pub fn set_timer_manager(
+        &mut self,
+        manager: Arc<Mutex<chimera_erlang_beam_timer::TimerManager>>,
+    ) {
         self.timer_manager = Some(manager);
     }
 
@@ -311,7 +314,10 @@ impl Scheduler {
     }
 
     /// Set the port manager for this scheduler (Task 70 integration)
-    pub fn set_port_manager(&mut self, manager: Arc<Mutex<chimera_erlang_beam_timer::AsyncPortManager>>) {
+    pub fn set_port_manager(
+        &mut self,
+        manager: Arc<Mutex<chimera_erlang_beam_timer::AsyncPortManager>>,
+    ) {
         self.port_manager = Some(manager);
     }
 

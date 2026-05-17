@@ -21,15 +21,17 @@
 
 // Re-export commonly used types
 pub mod atom;
+pub mod iff;
 pub mod mfa;
 pub mod module;
-pub mod iff;
 
 // Re-exports for convenience
 pub use atom::Atom;
+pub use iff::{
+    chunk_types, BeamFile, Chunk, BEAM_MAGIC, CHUNK_ATOM, CHUNK_CODE, CHUNK_EXPT, CHUNK_IMPT,
+};
 pub use mfa::Mfa;
-pub use module::{ModuleCode, ExportEntry, ImportEntry, Literal, FunLiteral, LineInfo, Opcode};
-pub use iff::{BeamFile, Chunk, BEAM_MAGIC, chunk_types, CHUNK_ATOM, CHUNK_CODE, CHUNK_EXPT, CHUNK_IMPT};
+pub use module::{ExportEntry, FunLiteral, ImportEntry, LineInfo, Literal, ModuleCode, Opcode};
 
 /// Result type for BEAM operations
 pub type Result<T> = std::result::Result<T, std::io::Error>;

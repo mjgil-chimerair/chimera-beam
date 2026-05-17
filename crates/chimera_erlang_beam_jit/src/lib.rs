@@ -48,9 +48,7 @@ pub fn is_available() -> bool {
 /// Compile BEAM bytecode to native code
 #[cfg(feature = "use_cpp_jit")]
 pub fn compile(bytecode: &[u8], arity: u32) -> Result<JitResult, String> {
-    let result = unsafe {
-        jit_compile(bytecode.as_ptr(), bytecode.len(), arity)
-    };
+    let result = unsafe { jit_compile(bytecode.as_ptr(), bytecode.len(), arity) };
 
     if result.code == 0 {
         Ok(result)
