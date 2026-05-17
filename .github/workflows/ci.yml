@@ -85,7 +85,6 @@ jobs:
   validate:
     name: Validate Task Completion
     runs-on: ubuntu-latest
-    if: hashFiles('scripts/validate-tasks.sh') != ''
     steps:
       - uses: actions/checkout@v4
 
@@ -95,10 +94,8 @@ jobs:
           toolchain: "1.85.0"
 
       - name: Make validation script executable
-        run: chmod +x scripts/validate-tasks.sh
-
-      - name: Run task validation
-        run: ./scripts/validate-tasks.sh || echo "Validation script needs completion"
+        run: |
+          if [ -f scripts/validate-tasks.sh ]; then chmod +x scripts/validate-tasks.sh && ./scripts/validate-tasks.sh; else echo "Validation script not found, skipping"; fi
 
   # Security audit
   security:
